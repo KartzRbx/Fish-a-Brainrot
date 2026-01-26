@@ -1,6 +1,8 @@
+--!strict
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local networker = require(ReplicatedStorage.CustomPackages.networker)
+local LeaderstatsServiceUtils = require(ReplicatedStorage.Shared.Services.LeaderstatsService.LeaderstatsServiceUtils)
 
 local CustomPackages = ReplicatedStorage:WaitForChild("CustomPackages")
 local DataService = require(CustomPackages:WaitForChild("dataservice")).server
@@ -14,7 +16,6 @@ function LeaderstatsService.init(self : LeaderstatsService)
 
 	Players.PlayerAdded:Connect(function(player)
 		self:setupLeaderstats(player)
-        self.networker:fire(player, 'UpdateCurrencyUIs')
 	end)
 
 	for _, player in Players:GetPlayers() do
@@ -31,33 +32,35 @@ function LeaderstatsService.setupLeaderstats(self : LeaderstatsService, player: 
 	leaderstats.Name = "leaderstats"
 	leaderstats.Parent = player
 
-	local cash = Instance.new("IntValue")
-	cash.Name = "Cash"
-	cash.Value = data:get("Cash")
-	cash.Parent = leaderstats
-
-	local level = Instance.new("IntValue")
-	level.Name = "Level"
-	level.Value = data:get("Level")
-	level.Parent = leaderstats
-
     local function updateInstance(InstanceName, NewValue)
-        local int = leaderstats:FindFirstChild(InstanceName)
-        if int then
-            int.Value = NewValue
+        local int = leaderstats:FindFirstChild(InstanceName)  :: IntValue
+        if not int then
+            int = Instance.new("IntValue")
+            int.Name = InstanceName
+            int.Parent = leaderstats
         end
-        self.networker:fire(player, 'UpdateCurrencyUIs')
+
+        int.Value = NewValue
+
+		local props : LeaderstatsServiceUtils.props = {
+			InstanceName = InstanceName,
+			NewValue = NewValue,
+		}
+
+        self.networker:fire(player, 'UpdateCurrencyUIs', props)
     end
 
+	-- Initial set
+	updateInstance('Fishers Caught', data:get({"Stats", "Fishers_Caught"}))
+	updateInstance('Money', data:get({"Stats", "Money"}))
+
 	-- Listen for changes
-	data:getChangedSignal("Cash"):Connect(function(newValue)
-		cash.Value = newValue
-        self.networker:fire(player, 'UpdateCurrencyUIs')
+	data:getChangedSignal({"Stats", "Fishers_Caught"}):Connect(function(newValue)
+		updateInstance('Fishers Caught', newValue)
 	end)
 
-	data:getChangedSignal("Level"):Connect(function(newValue)
-		level.Value = newValue
-        self.networker:fire(player, 'UpdateCurrencyUIs')
+	data:getChangedSignal({"Stats", "Money"}):Connect(function(newValue)
+		updateInstance('Money', newValue)
 	end)
 end
 
