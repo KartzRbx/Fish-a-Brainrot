@@ -38,6 +38,11 @@ version = "1.2.0"
 dependencies = []
 
 [[package]]
+name = "kumarion/formatnumber"
+version = "0.0.1"
+dependencies = []
+
+[[package]]
 name = "leifstout/dataservice"
 version = "0.4.0"
 dependencies = [["Janitor", "howmanysmall/janitor@1.18.3"], ["Networker", "leifstout/networker@0.2.1"], ["ProfileStore", "lm-loleris/profilestore@1.0.3"], ["Signal", "sleitnick/signal@2.0.3"]]
@@ -85,4 +90,4 @@ dependencies = []
 [[package]]
 name = "user/fish-a-brainrot"
 version = "0.1.0"
-dependencies = [["dataservice", "leifstout/dataservice@0.4.0"], ["janitor", "kartzrbx/janitor@1.1.0"], ["module3d", "kartzrbx/module3d@1.2.0"], ["networker", "leifstout/networker@0.3.1"], ["serviceplayerdata", "leifstout/serviceplayerdata@0.1.2"], ["signal", "kartzrbx/signal@1.2.0"]]
+dependencies = [["dataservice", "leifstout/dataservice@0.4.0"], ["formatnumber", "kumarion/formatnumber@0.0.1"], ["janitor", "kartzrbx/janitor@1.1.0"], ["module3d", "kartzrbx/module3d@1.2.0"], ["networker", "leifstout/networker@0.3.1"], ["serviceplayerdata", "leifstout/serviceplayerdata@0.1.2"], ["signal", "kartzrbx/signal@1.2.0"]]
