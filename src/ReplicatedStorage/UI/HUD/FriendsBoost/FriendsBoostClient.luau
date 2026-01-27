@@ -3,7 +3,7 @@ local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
 
 local CustomPackages = ReplicatedStorage:WaitForChild("CustomPackages")
-local networker = require(CustomPackages:WaitForChild("networker"))
+local networker = require(CustomPackages.networker)
 local FrientBoostUtils = require(script.Parent.FrientBoostUtils)
 
 local FriendsBoostClient = {
