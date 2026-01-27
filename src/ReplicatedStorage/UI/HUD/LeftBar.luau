@@ -1,0 +1,3 @@
+local LeftBar = {}
+
+return LeftBar
