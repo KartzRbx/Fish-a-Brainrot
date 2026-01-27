@@ -1,3 +1,5 @@
+local Players = game:GetService('Players')
+
 local InventoryServiceUtils = {}
 
 export type stack = {
@@ -6,6 +8,7 @@ export type stack = {
     Equipped : boolean,
 
 }
+
 
 export type hotbar = {
     Slot1 : number?,
