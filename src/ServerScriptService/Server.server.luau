@@ -6,7 +6,8 @@ local DataService = require(CustomPackages:WaitForChild("dataservice")).server
 
 local InventoryService = require(ServerScriptService.Services.InventoryService)
 local DataTemplate = require(ReplicatedStorage.Shared.Constants.DataTemplate)
-local LeaderstatsService = require(game:GetService("ServerScriptService").Services.LeaderstatsService)
+local LeaderstatsService = require(ServerScriptService.Services.LeaderstatsService)
+local FriendBoostService = require(ServerScriptService.Services.FriendBoostService)
 
 DataService:init({
 	template = DataTemplate,
@@ -16,3 +17,4 @@ DataService:init({
 
 InventoryService:init()
 LeaderstatsService:init()
+FriendBoostService:init()

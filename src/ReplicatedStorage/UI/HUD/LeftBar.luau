@@ -1,3 +1,0 @@
-local LeftBar = {}
-
-return LeftBar

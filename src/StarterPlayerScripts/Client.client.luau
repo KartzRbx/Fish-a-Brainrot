@@ -10,5 +10,8 @@ DataService:init()
 LeaderstatsServiceClient:init()
 InventoryServiceClient:init()
 
+-- Inicia o sistema de UI
+require(ReplicatedStorage.UI):init()
+
 
 

@@ -3,6 +3,7 @@ local DataTemplate = {
 		Fishers = {},
 		Brainrots = {},
 	},
+	FriendBoost = 0,
 	Stats = {
 		Fishers_Caught = 0,
 		Money = 0 

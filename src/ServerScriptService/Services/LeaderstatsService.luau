@@ -7,7 +7,9 @@ local LeaderstatsServiceUtils = require(ReplicatedStorage.Shared.Services.Leader
 local CustomPackages = ReplicatedStorage:WaitForChild("CustomPackages")
 local DataService = require(CustomPackages:WaitForChild("dataservice")).server
 
-local LeaderstatsService = {}
+local LeaderstatsService = {
+    networker = nil :: any
+}
 
 type LeaderstatsService = typeof(LeaderstatsService)
 
@@ -23,6 +25,20 @@ function LeaderstatsService.init(self : LeaderstatsService)
 			self:setupLeaderstats(player)
 		end)
 	end
+
+    -- Loop de teste para adicionar dinheiro (Apenas para teste)
+    task.spawn(function()
+        while true do
+            task.wait(5)
+            for _, player in Players:GetPlayers() do
+                local data = DataService:waitForData(player)
+                if data then
+                    local currentMoney = data:get({"Stats", "Money"})
+                    data:set({"Stats", "Money"}, currentMoney + 100)
+                end
+            end
+        end
+    end)
 end
 
 function LeaderstatsService.setupLeaderstats(self : LeaderstatsService, player: Player)

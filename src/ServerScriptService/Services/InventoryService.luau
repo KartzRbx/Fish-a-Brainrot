@@ -4,9 +4,29 @@ local dataservice = require(ReplicatedStorage.CustomPackages.dataservice).server
 local InventoryServiceUtils = require(ReplicatedStorage.Shared.Services.InventoryService.InventoryServiceUtils)
 local Janitor = require(ReplicatedStorage.CustomPackages.janitor)
 
-local InventoryService = {}
-InventoryService.PlayersManagers = {}
-InventoryService.Janitors = {}
+local InventoryService = {
+    PlayersManagers = {} :: {[Player]: InventoryServiceUtils.Inventory},
+    Janitors = {} :: {[Player]: any},
+    networker = nil :: any
+}
+
+type InventoryService = typeof(InventoryService)
+
+function InventoryService.init(self: InventoryService)
+    self.networker = require(ReplicatedStorage.CustomPackages.networker).server.new("InventoryService", self)
+
+    Players.PlayerAdded:Connect(function(player)
+        self:OnPlayerAdded(player)
+    end)
+    
+    Players.PlayerRemoving:Connect(function(player)
+        self:OnPlayerRemoving(player)
+    end)
+
+    for _, player in Players:GetPlayers() do
+        self:OnPlayerAdded(player)
+    end
+end
 
 function InventoryService.OnPlayerAdded(self: InventoryService, player: Player)
 	if self.PlayersManagers[player] then
@@ -112,25 +132,5 @@ function InventoryService.OnPlayerRemoving(self: InventoryService, player: Playe
     end
     self.PlayersManagers[player] = nil
 end
-
-function InventoryService.init(self: InventoryService)
-    self.networker = require(ReplicatedStorage.CustomPackages.networker).server.new("InventoryService", self)
-
-	for _, player: Player in Players:GetPlayers() do
-		task.spawn(function()
-            self:OnPlayerAdded(player)
-        end)
-	end
-
-    Players.PlayerAdded:Connect(function(player: Player)  
-        self:OnPlayerAdded(player)
-    end)
-
-    Players.PlayerRemoving:Connect(function(player: Player) 
-        self:OnPlayerRemoving(player)
-    end)
-end
-
-type InventoryService = typeof(InventoryService)
 
 return InventoryService
