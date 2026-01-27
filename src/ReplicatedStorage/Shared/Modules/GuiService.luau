@@ -4,6 +4,8 @@ local ReplicatedStorage = game:GetService('ReplicatedStorage')
 local TweenService = game:GetService('TweenService')
 local RunService = game:GetService('RunService')
 
+local SoundService = require(ReplicatedStorage.Shared.Modules.SoundService)
+
 local Blur = Lighting:WaitForChild('Blur')
 
 -- Configuration
@@ -33,8 +35,6 @@ local Player = Players.LocalPlayer
 local PlayerGui = Player:WaitForChild('PlayerGui')
 local Main = PlayerGui:WaitForChild('Main')
 local Center = Main:WaitForChild('Center')
-
-local ENABLE_UI_SOUND = ReplicatedStorage.Assets.Sounds.Window
 
 -- GuiService Class
 local GuiService = {}
@@ -68,7 +68,7 @@ local function CleanupTweens()
 	table.clear(CurrentTweens)
 end
 
-local function PlayTween(instance, tweenInfo, properties)
+local function PlayTween(instance: Instance, tweenInfo: TweenInfo, properties: {[string]: any})
 	local tween = TweenService:Create(instance, tweenInfo, properties)
 	table.insert(CurrentTweens, tween)
 	tween:Play()
@@ -117,11 +117,8 @@ function GuiService.OpenUI(guiName: string): (boolean, string?)
 	PlayTween(Blur, CONFIG.TweenInfo.Enable, {Size = CONFIG.Blur.Show})
 	PlayTween(workspace.CurrentCamera, CONFIG.TweenInfo.Enable, {FieldOfView = CONFIG.FOV.Show})
 
-	-- Play sound
-	if ENABLE_UI_SOUND then
-		PlayTween(ENABLE_UI_SOUND, CONFIG.TweenInfo.Enable, {Volume = 1})
-		ENABLE_UI_SOUND:Play()
-	end
+	-- Play sound using SoundService
+	SoundService.PingSound(Player, "Window", { Volume = 0.7 })
 
 	-- Show UI
 	local gui = Center[guiName]
@@ -216,13 +213,6 @@ end
 function GuiService.RestoreDefaults()
 	PlayTween(Blur, CONFIG.TweenInfo.Disable, {Size = CONFIG.Blur.Default})
 	PlayTween(workspace.CurrentCamera, CONFIG.TweenInfo.Disable, {FieldOfView = CONFIG.FOV.Default})
-
-	if ENABLE_UI_SOUND then
-		PlayTween(ENABLE_UI_SOUND, CONFIG.TweenInfo.Disable, {Volume = 0})
-		task.delay(CONFIG.Animation.Duration, function()
-			ENABLE_UI_SOUND:Stop()
-		end)
-	end
 end
 
 function GuiService.IsUIOpen(guiName: string): boolean

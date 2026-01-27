@@ -1,5 +1,6 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local networker = require(ReplicatedStorage.CustomPackages.networker)
+local CustomPackages = ReplicatedStorage:WaitForChild("CustomPackages")
+local networker = require(CustomPackages:WaitForChild("networker"))
 local InventoryServiceUtils = require(ReplicatedStorage.Shared.Services.InventoryService.InventoryServiceUtils)
 
 local InventoryServiceClient = {}

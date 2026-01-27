@@ -2,8 +2,10 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 
-local formatnumber = require(ReplicatedStorage.CustomPackages.formatnumber)
-local networker = require(ReplicatedStorage.CustomPackages.networker)
+
+local CustomPackages = ReplicatedStorage:WaitForChild("CustomPackages")
+local formatnumber = require(CustomPackages:WaitForChild("formatnumber"))
+local networker = require(CustomPackages:WaitForChild("networker"))
 local LeaderstatsServiceUtils = require(ReplicatedStorage.Shared.Services.LeaderstatsService.LeaderstatsServiceUtils)
 
 local LeaderstatsService = {
@@ -32,8 +34,12 @@ function LeaderstatsService.UpdateCurrencyUIs(self : LeaderstatsService, props :
     end
 
     local label : TextLabel?
+    local prefix = ""
+    local suffix = ""
+
     if props.InstanceName == 'Money' then
         label = hud.BottomLeftHolder.Currency
+        prefix = "$"
     end
 
     if not label then return end
@@ -70,7 +76,7 @@ function LeaderstatsService.UpdateCurrencyUIs(self : LeaderstatsService, props :
 
             local currentDisplayValue = math.floor(lastValue + (newValue - lastValue) * alpha)
             
-            label.Text = "$" .. formatnumber.Simple.Format(currentDisplayValue)
+            label.Text = prefix .. formatnumber.Simple.Format(currentDisplayValue) .. suffix
             
             if alpha >= 1 then
                 connection:Disconnect()

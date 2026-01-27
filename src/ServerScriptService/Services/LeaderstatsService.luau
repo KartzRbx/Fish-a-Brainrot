@@ -7,7 +7,9 @@ local LeaderstatsServiceUtils = require(ReplicatedStorage.Shared.Services.Leader
 local CustomPackages = ReplicatedStorage:WaitForChild("CustomPackages")
 local DataService = require(CustomPackages:WaitForChild("dataservice")).server
 
-local LeaderstatsService = {}
+local LeaderstatsService = {
+    networker = nil :: any
+}
 
 type LeaderstatsService = typeof(LeaderstatsService)
 
@@ -76,17 +78,6 @@ function LeaderstatsService.setupLeaderstats(self : LeaderstatsService, player: 
 	data:getChangedSignal({"Stats", "Money"}):Connect(function(newValue)
 		updateInstance('Money', newValue)
 	end)
-
-	-- Test
-
-	--[[
-	while true do
-		task.wait(5)
-		local currentMoney = data:get({"Stats", "Money"})
-		data:set({"Stats", "Money"}, currentMoney + 100)
-	end
-	]]
-
 end
 
 

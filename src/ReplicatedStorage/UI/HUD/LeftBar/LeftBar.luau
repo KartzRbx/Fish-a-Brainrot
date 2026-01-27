@@ -1,5 +1,7 @@
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local TweenService = game:GetService('TweenService')
 
+local GuiService = require(ReplicatedStorage.Shared.Modules.GuiService)
 local LeftBar_Util = require(script.Parent.LeftBar_Util)
 
 local LeftBar = {}
@@ -43,11 +45,16 @@ function LeftBar:applyButtonEffects(button: ImageButton)
         end
     end)
 
+    
+
     -- Mouse Button 1 Down (Click)
     button.MouseButton1Down:Connect(function()
         createTween(button, {
             Size = UDim2.new(originalScale.X.Scale * PRESS_SCALE, originalScale.X.Offset, originalScale.Y.Scale * PRESS_SCALE, originalScale.Y.Offset)
         }):Play()
+
+        
+       GuiService.ToggleUI(button.Name)
     end)
 
     -- Mouse Button 1 Up
