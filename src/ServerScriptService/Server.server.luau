@@ -2,7 +2,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local ServerScriptService = game:GetService("ServerScriptService")
 
 local CustomPackages = ReplicatedStorage:WaitForChild("CustomPackages")
-local DataService = require(CustomPackages:WaitForChild("dataservice")).server
+local DataService = require(CustomPackages.dataservice).server
 
 local InventoryService = require(ServerScriptService.Services.InventoryService)
 local DataTemplate = require(ReplicatedStorage.Shared.Constants.DataTemplate)

@@ -4,8 +4,8 @@ local RunService = game:GetService("RunService")
 
 
 local CustomPackages = ReplicatedStorage:WaitForChild("CustomPackages")
-local formatnumber = require(CustomPackages:WaitForChild("formatnumber"))
-local networker = require(CustomPackages:WaitForChild("networker"))
+local formatnumber = require(CustomPackages.formatnumber)
+local networker = require(CustomPackages.networker)
 local LeaderstatsServiceUtils = require(ReplicatedStorage.Shared.Services.LeaderstatsService.LeaderstatsServiceUtils)
 
 local LeaderstatsService = {
