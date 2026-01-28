@@ -19,8 +19,8 @@ local CONFIG = {
 		Show = 60
 	},
 	TweenInfo = {
-		Enable = TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out),
-		Disable = TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.In)
+		Enable = TweenInfo.new(0.2, Enum.EasingStyle.Quint, Enum.EasingDirection.Out),
+		Disable = TweenInfo.new(0.2, Enum.EasingStyle.Quint, Enum.EasingDirection.In)
 	},
 	Debounce = {
 		Duration = 0.5

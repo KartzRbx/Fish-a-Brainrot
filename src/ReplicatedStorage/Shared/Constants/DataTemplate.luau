@@ -3,10 +3,21 @@ local DataTemplate = {
 		Fishers = {},
 		Brainrots = {},
 	},
-	FriendBoost = 0,
 	Stats = {
-		Fishers_Caught = 0,
-		Money = 0 
+		Currency = {
+			Money = 0,
+			Cristal = 0,
+		},
+		Progress = {
+			Level = 1,
+			Experience = 0,
+			ToNext = 300,
+		},
+		TotalProgress = {
+			TotalDamage = 0,
+			TotalKills = 0,
+			TotalExperience = 0,
+		}
 	},
 	Inventory = {
 		HotBar = {},

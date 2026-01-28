@@ -4,17 +4,17 @@ local ServerScriptService = game:GetService("ServerScriptService")
 local CustomPackages = ReplicatedStorage:WaitForChild("CustomPackages")
 local DataService = require(CustomPackages.dataservice).server
 
-local InventoryService = require(ServerScriptService.Services.InventoryService)
+
 local DataTemplate = require(ReplicatedStorage.Shared.Constants.DataTemplate)
 local LeaderstatsService = require(ServerScriptService.Services.LeaderstatsService)
-local FriendBoostService = require(ServerScriptService.Services.FriendBoostService)
+local LevelServer = require(ServerScriptService.Services.LevelServer)
 
 DataService:init({
 	template = DataTemplate,
-	profileStoreIndex = "DataTeste",
+	profileStoreIndex = "DataTeste2",
 	useMock = game.PlaceId == 0,
 })
 
-InventoryService:init()
+
 LeaderstatsService:init()
-FriendBoostService:init()
+LevelServer:init()

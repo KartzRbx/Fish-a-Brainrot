@@ -7,9 +7,6 @@
       "CustomPackages": {
         "$path": "Packages"
       },
-      "Assets": {
-        "$path": "src/ReplicatedStorage/Assets"
-      },
       "Shared": {
         "$path": "src/ReplicatedStorage/Shared"
       },

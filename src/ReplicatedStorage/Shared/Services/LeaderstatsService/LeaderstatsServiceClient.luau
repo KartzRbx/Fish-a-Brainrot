@@ -3,9 +3,8 @@ local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 
 
-local CustomPackages = ReplicatedStorage:WaitForChild("CustomPackages")
-local formatnumber = require(CustomPackages.formatnumber)
-local networker = require(CustomPackages.networker)
+local formatnumber = require(ReplicatedStorage.CustomPackages.formatnumber)
+local networker = require(ReplicatedStorage.CustomPackages.networker)
 local LeaderstatsServiceUtils = require(ReplicatedStorage.Shared.Services.LeaderstatsService.LeaderstatsServiceUtils)
 
 local LeaderstatsService = {
@@ -24,6 +23,7 @@ function LeaderstatsService.init(self : LeaderstatsService)
 end
 
 function LeaderstatsService.UpdateCurrencyUIs(self : LeaderstatsService, props : LeaderstatsServiceUtils.props)
+    --[[
     if not props then
         return
     end
@@ -103,6 +103,7 @@ function LeaderstatsService.UpdateCurrencyUIs(self : LeaderstatsService, props :
         local tweenInfo = TweenInfo.new(0.1, Enum.EasingStyle.Back, Enum.EasingDirection.Out, 0, true)
         TweenService:Create(label, tweenInfo, {Size = targetSize}):Play()
     end
+    ]]
 end
 
 return LeaderstatsService
