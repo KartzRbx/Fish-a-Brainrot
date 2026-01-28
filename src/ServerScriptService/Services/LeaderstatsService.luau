@@ -26,7 +26,8 @@ function LeaderstatsService.init(self : LeaderstatsService)
 		end)
 	end
 
-    -- Loop de teste para adicionar dinheiro (Apenas para teste)
+   --[[
+  -- Loop de teste para adicionar dinheiro (Apenas para teste)
     task.spawn(function()
         while true do
             task.wait(5)
@@ -38,15 +39,16 @@ function LeaderstatsService.init(self : LeaderstatsService)
                 end
             end
         end
-    end)
+    end)  
+   ]]
 end
 
 function LeaderstatsService.setupLeaderstats(self : LeaderstatsService, player: Player)
-	local data = DataService:waitForData(player)
+    local data = DataService:waitForData(player)
 
-	local leaderstats = Instance.new("Folder")
-	leaderstats.Name = "leaderstats"
-	leaderstats.Parent = player
+    local leaderstats = Instance.new("Folder")
+    leaderstats.Name = "leaderstats"
+    leaderstats.Parent = player
 
     local function updateInstance(InstanceName, NewValue)
         local int = leaderstats:FindFirstChild(InstanceName)  :: IntValue
@@ -55,29 +57,26 @@ function LeaderstatsService.setupLeaderstats(self : LeaderstatsService, player: 
             int.Name = InstanceName
             int.Parent = leaderstats
         end
-
         int.Value = NewValue
 
-		local props : LeaderstatsServiceUtils.props = {
-			InstanceName = InstanceName,
-			NewValue = NewValue,
-		}
-
-        self.networker:fire(player, 'UpdateCurrencyUIs', props)
+        local props : LeaderstatsServiceUtils.props = {
+            InstanceName = InstanceName,
+            NewValue = NewValue,
+        }
     end
 
-	-- Initial set
-	updateInstance('Fishers Caught', data:get({"Stats", "Fishers_Caught"}))
-	updateInstance('Money', data:get({"Stats", "Money"}))
+    -- Currency
+    updateInstance('Money', data:get({"Stats", "Currency", "Money"}))
+    updateInstance('Cristal', data:get({"Stats", "Currency", "Cristal"}))
 
-	-- Listen for changes
-	data:getChangedSignal({"Stats", "Fishers_Caught"}):Connect(function(newValue)
-		updateInstance('Fishers Caught', newValue)
-	end)
+    -- Currency
+    data:getChangedSignal({"Stats", "Currency", "Money"}):Connect(function(newValue)
+        updateInstance('Money', newValue)
+    end)
+    data:getChangedSignal({"Stats", "Currency", "Cristal"}):Connect(function(newValue)
+        updateInstance('Cristal', newValue)
+    end)
 
-	data:getChangedSignal({"Stats", "Money"}):Connect(function(newValue)
-		updateInstance('Money', newValue)
-	end)
 end
 
 
